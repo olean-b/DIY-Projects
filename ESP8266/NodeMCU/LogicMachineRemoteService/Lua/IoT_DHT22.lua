@@ -1,9 +1,9 @@
-TEMP_DELTA_THRESHOLD = 300 -- = 0.3 Celcius
+TEMP_DELTA_THRESHOLD = 300 -- = 0.3 Celsius 
 HUMI_DELTA_THRESHOLD = 3
 
 TEMP_OBJ_ADR         = "1/1/14"         -- Group Address (GA) of Temperature object (09. 2 byte ploating point)
-HUMI_OBJ_ADR         = "1/1/15"         -- Group Address (GA) of Humidity object (09. 2 byte ploating point)
-SCADA_REMOTE_IP      = "192.168.1.123"  -- IP of LM
+HUMI_OBJ_ADR         = "1/1/15"         -- Group Address (GA) of Humidity object    (09. 2 byte ploating point)
+SCADA_REMOTE_IP      = "192.168.1.123"  -- IP of LogicMachine
 SCADA_AUTH_USR_PASS  = "remote:remote"  -- [UserName:Password] or LM remote service
 
 DHT22_DATA_PIN       = 4                -- DataPin GPIO2
@@ -30,7 +30,7 @@ function ReadDHT22()
         g_grandPrevTemp = l_grandTemp 
 
         print("1/1/14&value=" .. l_strTemp)
-        --writeLMValue(TEMP_OBJ_ADR .. "&value=" .. l_strTemp)          
+        writeLMValue(TEMP_OBJ_ADR .. "&value=" .. l_strTemp)          
       end 
     else 
       -- Humidity      
@@ -40,7 +40,7 @@ function ReadDHT22()
         g_intPrevHumi = l_intHumi
         
         print("1/1/15&value=" .. l_strHumi)                        
-        --writeLMValue(HUMI_OBJ_ADR .. "&value=" .. l_strHumi)
+        writeLMValue(HUMI_OBJ_ADR .. "&value=" .. l_strHumi)
       end      
     end
     g_nextReadTemp = not g_nextReadTemp
@@ -73,5 +73,5 @@ function writeLMValue(aliasValue)
                "\r\n") 
 end
 
--- read data every 60 sek =  60000
+-- Read data every 6 sek
 tmr.alarm(2, 6000, 1, function() ReadDHT22() end )
