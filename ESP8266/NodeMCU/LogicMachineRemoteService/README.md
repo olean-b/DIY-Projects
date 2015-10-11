@@ -3,20 +3,20 @@ NodeMCU to KNX trough the RemoteService on Logic Macine
 
 Overview
 ========
-This is a early DIY project on how I built an external temperature (and humidity) sensor to extend my KNX installation. The actual interface between the NodeMCU and the KNX in this project, is a Logic Macine (LM3) from [Embedded Systems](http://openrb.com/).
+This is a early DIY project on how I built an external temperature (and humidity) sensor to extend my KNX installation. The actual interface between the NodeMCU and KNX Bus in this project, is a Logic Macine (LM3) from [Embedded Systems](http://openrb.com/).
 On the LM i'm using the RemoteService by posting a json- style message. 
 
 Components
 ========
-For this project you need only two components:
+Besides the Logic Machine unit from Embedded Systems (as stated above), you need only two components for this project:
 - DHT22 Temperature and Humidity sensor
 - ESP-01 (Wifi module ESP8622 by Espressif)
 
-To flash, and load the provided Lua code/script – you will be using a USB TTL module with the option to supply 3.3V
+To flash, and load the provided Lua code, you will be using a USB TTL module with the option to supply 3.3V
 
 Flash ESP-01 with custom build firmware
 ========
-Follow this link to learn the basics of installing NodeMCU for the ESP-01. [http://benlo.com/esp8266/esp8266QuickStart.html] (http://benlo.com/esp8266/esp8266QuickStart.html)
+Follow this link to learn the basics of installing (flashing) NodeMCU for the ESP-01. [http://benlo.com/esp8266/esp8266QuickStart.html] (http://benlo.com/esp8266/esp8266QuickStart.html)
 
 I recommend using the ESPlorer IDE. Latest version is available at [http://esp8266.ru/esplorer/] (http://esp8266.ru/esplorer/)
 
@@ -29,15 +29,13 @@ For this project I am using a built against the master branch that includes the 
 Putting in all together
 ========
 
-When the ESP-01 has successfully been flashed with your custom build firmware, you may build a breadboard prototype.
+When the ESP-01 has successfully been flashed with a custom build firmware, you may build a breadboard prototype.
 
+* Breadboard prototype
+[Breadboard prototype wiring](fritzing/ESP01_DHT22_NodeMCU_bb.png?raw=true)
 
-1. Breadboard-Prototyping
-- Wiring: ![Breadboard diagram](fritzing/ESP01_DHT22_NodeMCU_bb.png?raw=true)
-
-2. Modify source files 
-
-- In the *init_startup.lua* change these values  to local configuration
+- Modify source files 
+In the *init_startup.lua* change these values  to local configuration
 
 ``` 
 WIFI_SSID = "MySSID"    
