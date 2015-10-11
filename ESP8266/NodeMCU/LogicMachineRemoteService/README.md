@@ -31,10 +31,11 @@ Putting in all together
 
 When the ESP-01 has successfully been flashed with a custom build firmware, you may build a breadboard prototype.
 
-* Breadboard prototype
-[Breadboard prototype wiring](fritzing/ESP01_DHT22_NodeMCU_bb.png?raw=true)
+1. Breadboard prototype:
+![](fritzing/ESP01_DHT22_NodeMCU_bb.png?raw=true)
 
-- Modify source files 
+2. Modify source files 
+
 In the *init_startup.lua* change these values  to local configuration
 
 ``` 
@@ -45,19 +46,24 @@ WIFI_PASS = "MyWiFiPass"
 - In the *IoT_DHT22.lua* change these values  to local configuration
 
 ``` 
-TEMP_OBJ_ADR         = "1/1/14"         -- Group Address (GA) of Temperature object (09. 2 byte ploating point)
-HUMI_OBJ_ADR         = "1/1/15"         -- Group Address (GA) of Humidity object (09. 2 byte ploating point)
+TEMP_OBJ_ADR         = "1/1/14"         -- Group Address (GA) of Temperature object
+HUMI_OBJ_ADR         = "1/1/15"         -- Group Address (GA) of Humidity object
 SCADA_REMOTE_IP      = "192.168.1.123"  -- IP of LM
 SCADA_AUTH_USR_PASS  = "remote:remote"  -- [UserName:Password] or LM remote service
 
 ```
 
 3. Deploying a node
+
+This i a suggestion on how to implement on a 3 row ferfboard (DOT PCB)
 - Wiring: ![Circuit diagram](fritzing/ESP01_DHT22_NodeMCU.png?raw=true)
+
+Final result migth look somthing like this
+![](photo/NodeMCU_DHT22.jpg?raw=true)
 
 
 
 ### To-Do: 
 - Battery power
-- 3D printed casing to enhance WAF...
+- 3D printed casing to enhance WAF
 
