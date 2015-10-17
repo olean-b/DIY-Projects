@@ -55,7 +55,7 @@ SCADA_AUTH_USR_PASS  = "remote:remote"  -- [UserName:Password] or LM remote serv
 
 3. Deploying a node
 
-This i a suggestion on how to implement on a 3 row ferfboard (DOT PCB)
+This i a suggestion on how to implement on a 3 row perfboard (DOT PCB)
 ![Circuit diagram](fritzing/ESP01_DHT22_NodeMCU.png?raw=true)
 
 Final result migth look somthing like this
