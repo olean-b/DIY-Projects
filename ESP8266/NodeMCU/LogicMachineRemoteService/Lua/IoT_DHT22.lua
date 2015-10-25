@@ -60,7 +60,7 @@ function writeLMValue(aliasValue)
                               g_intRestartCount = g_intRestartCount + 1
 
                               if( g_intRestartCount >= RESTART_COUNT_LIMIT) then
-                                node.Restart()
+                                node.restart()
                               end
                             end)
   
