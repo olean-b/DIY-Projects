@@ -1,5 +1,5 @@
 #  GarageNodeMCU on MQTT
-MQTT driven Garage door (with temperature and humidity sensor)
+MQTT driven Garage door (with temperature and humidity sensor).
  
 
 ### To-Do: 
