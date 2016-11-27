@@ -60,6 +60,8 @@
  * Configuration running on IBoard Arduino ATMega328 Board With WIZnet POE Ethernet Port
  * https://www.itead.cc/wiki/IBoard
  * 
+ * Upload Sketch as Pro or Pro Mini ATmega328(5v, 16 MHz)
+ * 
  */
 
 #include <SPI.h>
