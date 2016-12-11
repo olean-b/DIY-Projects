@@ -28,7 +28,7 @@
 
 #include <SPI.h>
 #include <MySensors.h>  
-#include <DHT.h>  
+#include "dht.h"
 
 #define CHILD_ID_HUM 0
 #define CHILD_ID_TEMP 1
@@ -38,7 +38,7 @@ unsigned long SLEEP_TIME = 60000;  // Sleep time between reads (in milliseconds)
 int BATTERY_SENSE_PIN = A0;  // select the input pin for the battery sense point
 int oldBatteryPcnt = 0;
 
-DHT dht;
+dht DHT;
 float lastTemp = 0.0;
 float lastHum = 0.0;
 const double tempDeltaThreshold = 0.2;
@@ -56,10 +56,6 @@ int batArray[6];
 
 void setup()  
 { 
-  dht.setup(HUMIDITY_SENSOR_DIGITAL_PIN); 
-
-  metric = getConfig().isMetric;
-
   #if defined(__AVR_ATmega2560__)
    analogReference(INTERNAL1V1);
   #else
@@ -79,49 +75,52 @@ void presentation()
 
 void loop()      
 {  
-  delay(dht.getMinimumSamplingPeriod());
- 
-  // Fetch temperatures from DHT sensor
-  float temperature = dht.getTemperature() - 0.5;
-  if (isnan(temperature)) 
+  // Force reading sensor, so it works also after sleep()
+  int chk = DHT.read22(HUMIDITY_SENSOR_DIGITAL_PIN);
+
+  if (chk == DHTLIB_OK)
   {
-    #ifdef MY_DEBUG
-    Serial.println("Failed reading temperature from DHT");
-    #endif
-  } 
-  else if( fabs(temperature - lastTemp) > tempDeltaThreshold)
-  {
-    lastTemp = temperature;
-    if (!metric) {
-      temperature = dht.toFahrenheit(temperature);
-    }
-    send(msgTemp.set(temperature, 1));
-    blink();blink();
-    
-    #ifdef MY_DEBUG
-      Serial.print("T: ");
-      Serial.println(temperature);
-    #endif
-  }
-  
-  // Fetch humidity from DHT sensor
-  float humidity = dht.getHumidity();
-  if (isnan(humidity)) 
-  {
-    #ifdef MY_DEBUG
-      Serial.println("Failed reading humidity from DHT");
-    #endif
-  } 
-  else if( fabs(humidity - lastHum) > humDeltaThreshold)
-  {
-      lastHum = humidity;
-      send(msgHum.set(humidity, 1));
-      blink();
-      
+    float temperature = DHT.temperature - 0.5;
+    if (isnan(temperature)) 
+    {
       #ifdef MY_DEBUG
-        Serial.print("H: ");
-        Serial.println(humidity);
+      Serial.println("Failed reading temperature from DHT");
       #endif
+    } 
+    else if( fabs(temperature - lastTemp) > tempDeltaThreshold)
+    {
+      lastTemp = temperature;
+      if (!metric) {
+        temperature = DHT.temperature;
+      }
+      send(msgTemp.set(temperature, 1));
+      blink();blink();
+    
+      #ifdef MY_DEBUG
+        Serial.print("T: ");
+        Serial.println(temperature);
+      #endif
+    }
+  
+    // Fetch humidity from DHT sensor
+    float humidity = DHT.humidity;
+    if (isnan(humidity)) 
+    {
+      #ifdef MY_DEBUG
+        Serial.println("Failed reading humidity from DHT");
+      #endif
+    } 
+    else if( fabs(humidity - lastHum) > humDeltaThreshold)
+    {
+        lastHum = humidity;
+        send(msgHum.set(humidity, 1));
+        blink();
+      
+        #ifdef MY_DEBUG
+          Serial.print("H: ");
+          Serial.println(humidity);
+        #endif
+    }
   }
 
   batM();
