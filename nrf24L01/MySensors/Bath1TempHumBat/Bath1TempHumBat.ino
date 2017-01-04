@@ -45,7 +45,7 @@ int oldBatteryPcnt = 0;
 #define VMAX 3.0                                  //  Vmax = (2xAA bat)=3.0V (892v)
 int batteryPcnt = 0;                              // Calc value for battery %
 int batLoop = 0;                                  // Loop to help calc average
-int batArray[3];   
+int batArray[6];   
 
 DHT dht;
 float lastTemp = 0.0;
@@ -159,19 +159,19 @@ void batM() //The battery calculations
    // Add it to array so we get an average of 3 (3x20min)
    batArray[batLoop] = batteryPcnt;
    
-   if (batLoop > 2) {  
+   if (batLoop > 5) {  
     batteryPcnt = (batArray[0] + batArray[1] + batArray[2] + batArray[3]);
-    batteryPcnt = batteryPcnt / 3;
+    batteryPcnt = batteryPcnt / 6;
     
     
     if (batteryPcnt > 100) { batteryPcnt=100; }
     
     //Serial.print("Battery Average (Send): "); Serial.print(batteryPcnt); Serial.println(" %");
-    if (oldBatteryPcnt != batteryPcnt) {
+    //if (oldBatteryPcnt != batteryPcnt) {
     // Power up radio after sleep
     sendBatteryLevel(batteryPcnt);
     oldBatteryPcnt = batteryPcnt;
-    }
+    //}
     
     batLoop = 0;
    }
