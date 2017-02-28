@@ -41,9 +41,7 @@
 // #define MY_DEBUG
 #define MY_NODE_ID 8
 
-// Enable and select radio type attached
 #define MY_RADIO_NRF24
-//#define MY_RADIO_RFM69
 
 #include <SPI.h>
 #include <MySensors.h>  
@@ -54,7 +52,7 @@
 #define MAX_WATT 10000          // Max watt value to report. This filetrs outliers.
 #define CHILD_ID 1              // Id of the sensor child
 
-unsigned long SEND_FREQUENCY = 20000; // Minimum time between send (in milliseconds). We don't wnat to spam the gateway.
+unsigned long SEND_FREQUENCY = 40000; // Minimum time between send (in milliseconds). We don't wnat to spam the gateway.
 double ppwh = ((double)PULSE_FACTOR)/1000; // Pulses per watt hour
 boolean pcReceived = false;
 volatile unsigned long pulseCount = 0;   
